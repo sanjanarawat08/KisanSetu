@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 *{
@@ -38,6 +37,11 @@ body{
   font-size:2rem;
   font-weight:700;
   color:#166534;
+  text-decoration:none;
+}
+
+.logo:hover{
+  color:#22c55e;
 }
 
 .nav-links{
@@ -51,7 +55,7 @@ body{
   text-decoration:none;
   color:#374151;
   font-weight:500;
-  transition:0.3s;
+  transition:.3s;
 }
 
 .nav-links a:hover{
@@ -63,6 +67,10 @@ body{
   color:white !important;
   padding:10px 22px;
   border-radius:8px;
+}
+
+.signup-btn:hover{
+  background:#16a34a;
 }
 
 /* ================= HERO ================= */
@@ -91,7 +99,6 @@ body{
   font-size:2rem;
   color:#374151;
   margin-bottom:30px;
-  line-height:1.5;
 }
 
 .motto{
@@ -99,39 +106,6 @@ body{
   color:#6b7280;
   line-height:1.8;
   margin-bottom:50px;
-}
-
-.scheme-section{
-  background:white;
-  padding:40px;
-  border-radius:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
-
-.scheme-section h3{
-  color:#166534;
-  margin-bottom:20px;
-}
-
-.scheme-section p{
-  color:#6b7280;
-  line-height:1.8;
-}
-
-.know-more-btn{
-  margin-top:25px;
-  padding:15px 35px;
-  border:none;
-  border-radius:10px;
-  background:#22c55e;
-  color:white;
-  cursor:pointer;
-  font-size:16px;
-  font-weight:600;
-}
-
-.know-more-btn:hover{
-  background:#16a34a;
 }
 
 /* ================= FEEDBACK ================= */
@@ -162,7 +136,7 @@ body{
   border-radius:20px;
   box-shadow:0 10px 25px rgba(0,0,0,0.08);
   border-top:5px solid #22c55e;
-  transition:0.3s;
+  transition:.3s;
 }
 
 .feedback-card:hover{
@@ -178,7 +152,6 @@ body{
   margin-top:15px;
   color:#4b5563;
   line-height:1.8;
-  font-style:italic;
 }
 
 .feedback-card h4{
@@ -186,9 +159,139 @@ body{
   color:#166534;
 }
 
-.feedback-card span{
-  color:#6b7280;
-  font-size:14px;
+/* ================= LOGIN & SIGNUP ================= */
+
+.login-container,
+.signup-container{
+  min-height:80vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:40px 20px;
+  background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+}
+
+.login-box,
+.signup-box{
+  width:100%;
+  max-width:450px;
+  background:white;
+  padding:40px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.login-box h2,
+.signup-box h2{
+  text-align:center;
+  color:#166534;
+  margin-bottom:25px;
+}
+
+.login-box form,
+.signup-box form{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.login-box input,
+.signup-box input,
+.login-box select,
+.signup-box select{
+  padding:14px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  outline:none;
+  font-size:15px;
+}
+
+.login-box input:focus,
+.signup-box input:focus,
+.login-box select:focus,
+.signup-box select:focus{
+  border-color:#22c55e;
+}
+
+.password-field{
+  display:flex;
+  gap:10px;
+}
+
+.password-field input{
+  flex:1;
+}
+
+.password-field button{
+  padding:0 15px;
+  border:none;
+  background:#166534;
+  color:white;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.password-field button:hover{
+  background:#22c55e;
+}
+
+.login-btn,
+.signup-submit-btn{
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  background:#22c55e;
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.login-btn:hover,
+.signup-submit-btn:hover{
+  background:#16a34a;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+  background:#14532d;
+  color:white;
+  padding:70px 8% 20px;
+}
+
+.footer-container{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:2fr 1fr 1.5fr;
+  gap:60px;
+}
+
+.footer-logo{
+  color:#86efac;
+  font-size:2rem;
+  margin-bottom:20px;
+}
+
+.footer-section p,
+.footer-section a{
+  color:#d1fae5;
+  text-decoration:none;
+  margin-bottom:12px;
+}
+
+.footer-section a:hover{
+  color:white;
+}
+
+.footer-bottom{
+  margin-top:50px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.2);
+  text-align:center;
+  color:#bbf7d0;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -211,111 +314,15 @@ body{
   }
 
   .hero-content h2{
-    font-size:1.4rem;
+    font-size:1.5rem;
   }
 
-  .feedback-card{
-    width:100%;
-    max-width:350px;
-  }
-}
-
-/* ================= FOOTER ================= */
-.footer{
-    background:#14532d;
-    color:white;
-    padding:70px 8% 20px;
-}
-
-.footer-container{
-    max-width:1200px;
-    margin:auto;
-
-    display:grid;
-    grid-template-columns:2fr 1fr 1.5fr;
-    gap:60px;
-}
-
-.footer-section{
-    display:flex;
-    flex-direction:column;
-}
-
-.footer-logo{
-    color:#86efac;
-    font-size:2rem;
-    margin-bottom:20px;
-}
-
-.footer-section h3{
-    margin-bottom:20px;
-    font-size:1.3rem;
-}
-
-.footer-section p{
-    color:#d1fae5;
-    line-height:1.8;
-    margin-bottom:12px;
-}
-
-.footer-section a{
-    color:#d1fae5;
-    text-decoration:none;
-    margin-bottom:12px;
-    transition:0.3s;
-}
-
-.footer-section a:hover{
-    color:white;
-    transform:translateX(5px);
-}
-
-.social-icons{
-    display:flex;
-    gap:15px;
-    margin-top:20px;
-}
-
-.social-icons a{
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    background:#166534;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:white;
-    font-size:18px;
-    transition:0.3s;
-}
-
-.social-icons a:hover{
-    background:#22c55e;
-    transform:translateY(-5px);
-}
-
-.footer-bottom{
-    margin-top:50px;
-    padding-top:20px;
-    border-top:1px solid rgba(255,255,255,0.2);
+  .footer-container{
+    grid-template-columns:1fr;
     text-align:center;
-    color:#bbf7d0;
-}
+  }
 
-
-
-/* ================= FOOTER RESPONSIVE ================= */
-
-/* Mobile */
-
-@media(max-width:768px){
-
-    .footer-container{
-        grid-template-columns:1fr;
-        text-align:center;
-    }
-
-    .social-icons{
-        justify-content:center;
-    }
+  .password-field{
+    flex-direction:column;
+  }
 }

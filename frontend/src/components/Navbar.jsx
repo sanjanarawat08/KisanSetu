@@ -1,19 +1,35 @@
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
     <nav className="navbar">
-      <h2 className="logo">🌾 KisanSetu</h2>
+      <Link to="/" className="logo">
+        🌾 KisanSetu
+      </Link>
 
       <ul className="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/schemes">Government Schemes</a></li>
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/signup">Sign Up</a></li>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+
+        <li>
+          <Link to="/schemes">Government Schemes</Link>
+        </li>
+
+        <li>
+          <Link to="/about">About Us</Link>
+        </li>
+
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+
+        <li>
+          <Link to="/signup">Sign Up</Link>
+        </li>
       </ul>
     </nav>
   );
 }
 
 export default Navbar;
- 
