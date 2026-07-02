@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -8,6 +11,7 @@ function Login() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     setLoginData({
@@ -21,7 +25,14 @@ function Login() {
 
     console.log("Login Data:", loginData);
 
-    // Later you can send this to backend
+    setMessage("Login Successful! Redirecting...");
+
+    // Redirect to home page after 1 second
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+
+    // Later connect with backend API
     // axios.post("/api/login", loginData);
   };
 
@@ -29,6 +40,8 @@ function Login() {
     <div className="login-container">
       <div className="login-box">
         <h2>Login</h2>
+
+        {message && <div className="success-message">{message}</div>}
 
         <form onSubmit={handleSubmit}>
           <input
@@ -46,7 +59,7 @@ function Login() {
             onChange={handleChange}
           >
             <option value="customer">Customer</option>
-            <option value="hotelOwner">Farmer</option>
+            <option value="farmer">Farmer</option>
           </select>
 
           <div className="password-field">
@@ -72,6 +85,10 @@ function Login() {
             Login
           </button>
         </form>
+
+        <p className="signup-link">
+          New user? <Link to="/signup">Create an account</Link>
+        </p>
       </div>
     </div>
   );

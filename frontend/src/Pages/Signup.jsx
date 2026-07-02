@@ -11,6 +11,8 @@ function Signup() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -22,12 +24,28 @@ function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Clear previous message
+    setMessage("");
+
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      setMessage("Passwords do not match!");
+      setMessageType("error");
       return;
     }
 
     console.log("Signup Data:", formData);
+
+    setMessage("Account created successfully!");
+    setMessageType("success");
+
+    // Reset form after successful signup
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      role: "customer",
+    });
 
     // Later connect with backend API
     // axios.post("/api/signup", formData);
@@ -37,6 +55,12 @@ function Signup() {
     <div className="signup-container">
       <div className="signup-box">
         <h2>Sign Up</h2>
+
+        {message && (
+          <div className={`message ${messageType}`}>
+            {message}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
           <input
@@ -63,7 +87,7 @@ function Signup() {
             onChange={handleChange}
           >
             <option value="customer">Customer</option>
-            <option value="hotelOwner">Farmer</option>
+            <option value="farmer">Farmer</option>
           </select>
 
           <div className="password-field">
