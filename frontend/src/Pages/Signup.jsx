@@ -1,6 +1,10 @@
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,10 +25,9 @@ function Signup() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Clear previous message
     setMessage("");
 
     if (formData.password !== formData.confirmPassword) {
@@ -33,22 +36,39 @@ function Signup() {
       return;
     }
 
-    console.log("Signup Data:", formData);
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/signup",
+        {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          role: formData.role,
+        }
+      );
 
-    setMessage("Account created successfully!");
-    setMessageType("success");
+      setMessage(response.data.message);
+      setMessageType("success");
 
-    // Reset form after successful signup
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      role: "customer",
-    });
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        role: "customer",
+      });
 
-    // Later connect with backend API
-    // axios.post("/api/signup", formData);
+      // Redirect to login page after 2 seconds
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+
+    } catch (error) {
+      setMessage(
+        error.response?.data?.message || "Signup failed"
+      );
+      setMessageType("error");
+    }
   };
 
   return (

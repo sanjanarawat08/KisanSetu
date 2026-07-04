@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const handleChange = (e) => {
     setLoginData({
@@ -20,20 +22,36 @@ function Login() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Login Data:", loginData);
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        loginData
+      );
 
-    setMessage("Login Successful! Redirecting...");
+      setIsError(false);
+      setMessage(response.data.message);
 
-    // Redirect to home page after 1 second
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
+      // Store logged in user data
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.data.user)
+      );
 
-    // Later connect with backend API
-    // axios.post("/api/login", loginData);
+      // Redirect to home page after 1 second
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+
+    } catch (error) {
+      setIsError(true);
+
+      setMessage(
+        error.response?.data?.message || "Login Failed"
+      );
+    }
   };
 
   return (
@@ -41,7 +59,15 @@ function Login() {
       <div className="login-box">
         <h2>Login</h2>
 
-        {message && <div className="success-message">{message}</div>}
+        {message && (
+          <div
+            className={
+              isError ? "error-message" : "success-message"
+            }
+          >
+            {message}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
           <input
@@ -74,8 +100,8 @@ function Login() {
 
             <button
               type="button"
-              onClick={() => setShowPassword(!showPassword)}
               className="show-password-btn"
+              onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? "Hide" : "Show"}
             </button>
