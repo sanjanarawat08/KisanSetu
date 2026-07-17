@@ -15,6 +15,7 @@ function Login() {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
 
+  // Handle input changes
   const handleChange = (e) => {
     setLoginData({
       ...loginData,
@@ -22,6 +23,7 @@ function Login() {
     });
   };
 
+  // Handle Login
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -34,15 +36,33 @@ function Login() {
       setIsError(false);
       setMessage(response.data.message);
 
-      // Store logged in user data
+      // Save user with role
+      const loggedInUser = {
+        ...response.data.user,
+        role: loginData.role,
+      };
+
       localStorage.setItem(
         "user",
-        JSON.stringify(response.data.user)
+        JSON.stringify(loggedInUser)
       );
 
-      // Redirect to home page after 1 second
+      // Redirect according to role
       setTimeout(() => {
-        navigate("/");
+        switch (loginData.role) {
+          case "admin":
+            navigate("/admin/dashboard");
+            break;
+
+          case "farmer":
+            navigate("/farmer/dashboard");
+            break;
+
+          case "customer":
+          default:
+            navigate("/customer/dashboard");
+            break;
+        }
       }, 1000);
 
     } catch (error) {
@@ -62,7 +82,9 @@ function Login() {
         {message && (
           <div
             className={
-              isError ? "error-message" : "success-message"
+              isError
+                ? "error-message"
+                : "success-message"
             }
           >
             {message}
@@ -70,6 +92,7 @@ function Login() {
         )}
 
         <form onSubmit={handleSubmit}>
+
           <input
             type="email"
             name="email"
@@ -84,13 +107,26 @@ function Login() {
             value={loginData.role}
             onChange={handleChange}
           >
-            <option value="customer">Customer</option>
-            <option value="farmer">Farmer</option>
+            <option value="customer">
+              Customer
+            </option>
+
+            <option value="farmer">
+              Farmer
+            </option>
+
+            <option value="admin">
+              Admin
+            </option>
           </select>
 
           <div className="password-field">
             <input
-              type={showPassword ? "text" : "password"}
+              type={
+                showPassword
+                  ? "text"
+                  : "password"
+              }
               name="password"
               placeholder="Password"
               value={loginData.password}
@@ -101,19 +137,28 @@ function Login() {
             <button
               type="button"
               className="show-password-btn"
-              onClick={() => setShowPassword(!showPassword)}
+              onClick={() =>
+                setShowPassword(!showPassword)
+              }
             >
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
 
-          <button type="submit" className="login-btn">
+          <button
+            type="submit"
+            className="login-btn"
+          >
             Login
           </button>
+
         </form>
 
         <p className="signup-link">
-          New user? <Link to="/signup">Create an account</Link>
+          New user?{" "}
+          <Link to="/signup">
+            Create an account
+          </Link>
         </p>
       </div>
     </div>

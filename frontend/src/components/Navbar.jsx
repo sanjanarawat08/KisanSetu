@@ -10,6 +10,15 @@ function Navbar() {
     navigate("/login");
   };
 
+  // Dashboard route based on role
+  const dashboardLink = user
+    ? user.role === "admin"
+      ? "/admin/dashboard"
+      : user.role === "farmer"
+      ? "/farmer/dashboard"
+      : "/customer/dashboard"
+    : "/login";
+
   return (
     <nav className="navbar">
       <Link to="/" className="logo">
@@ -29,6 +38,13 @@ function Navbar() {
           <Link to="/about">About Us</Link>
         </li>
 
+        {/* Dashboard */}
+        {user && (
+          <li>
+            <Link to={dashboardLink}>Dashboard</Link>
+          </li>
+        )}
+
         {!user ? (
           <>
             <li>
@@ -47,8 +63,8 @@ function Navbar() {
 
             <li>
               <button
-                onClick={handleLogout}
                 className="logout-btn"
+                onClick={handleLogout}
               >
                 Logout
               </button>
